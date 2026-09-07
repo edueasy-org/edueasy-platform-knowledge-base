@@ -1,0 +1,112 @@
+# edueasy-chatbot-api - Environment Template Configuration
+# Template for environment-specific application YAML files.
+# Copy this file and replace placeholders with actual values for your environment.
+#
+# Usage:
+#   1. Copy to application-{env}.yml (e.g., application-dev.yml)
+#   2. Set environment variables or replace ${PLACEHOLDER} values
+#   3. Encrypt secrets: java -cp jasypt.jar org.jasypt.intf.cli.JasyptPBEStringEncryptionCLI
+#
+# YAML SYNTAX RULES:
+#   - Use ${ENV_VAR:default} syntax for environment variable substitution
+#   - Keys with special chars need quoting: "[za.co.edueasy.api.chatbot]": DEBUG
+#   - Only ONE 'spring:' block per file
+#   - 'audiences' must be a list, not a string
+
+server:
+  port: ${SERVER_PORT:8090}
+
+# Chatbot-specific configuration
+chatbot:
+  confidence-threshold: ${CHATBOT_CONFIDENCE_THRESHOLD:0.7}
+  max-suggestions: ${CHATBOT_MAX_SUGGESTIONS:3}
+  recurring-faq-threshold: ${CHATBOT_RECURRING_FAQ_THRESHOLD:3}
+  escalation:
+    admin-email: ${ESCALATION_ADMIN_EMAIL:edueasy-support@edueasy.co.za}
+    faq-admin-email: ${ESCALATION_FAQ_ADMIN_EMAIL:edueasy-faq-admin@edueasy.co.za}
+
+# Application monitoring and error tracking
+sentry:
+  enabled: ${SENTRY_ENABLED:false}
+  traces-sample-rate: ${SENTRY_TRACES_SAMPLE_RATE:0.1}
+
+# Spring Configuration (SINGLE spring: block - do not duplicate!)
+spring:
+  application:
+    name: edueasy-chatbot-api
+  output:
+    ansi:
+      enabled: ${ANSI_ENABLED:detect}
+
+  # Oracle Database Configuration
+  datasource:
+    url: ${SPRING_DATASOURCE_URL:jdbc:oracle:thin:@//localhost:1521/XEPDB1}
+    username: ${SPRING_DATASOURCE_USERNAME:EDU_PAY}
+    password: ${SPRING_DATASOURCE_PASSWORD:ENC(encrypted-value-here)}
+    driver-class-name: oracle.jdbc.OracleDriver
+  jpa:
+    hibernate:
+      ddl-auto: none
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.OracleDialect
+    show-sql: ${JPA_SHOW_SQL:false}
+
+  # RabbitMQ Configuration
+  rabbitmq:
+    host: ${RABBITMQ_HOST:localhost}
+    port: ${RABBITMQ_PORT:5672}
+    username: ${RABBITMQ_USERNAME:guest}
+    password: ${RABBITMQ_PASSWORD:ENC(encrypted-value-here)}
+
+  # OAuth2 JWT Configuration (auto-configured by common-starter-security)
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: https://login.microsoftonline.com/95d6a08d-8d38-495b-9c70-ab0cacd42d64/v2.0
+          audiences:
+            - ${OAUTH2_AUDIENCE:eb596b75-d742-4786-8325-2a55591c69d9}
+
+# Logging Configuration
+logging:
+  level:
+    root: ${ROOT_LOG_LEVEL:INFO}
+    "[za.co.edueasy.api.chatbot]": ${APP_LOG_LEVEL:DEBUG}
+    "[org.springframework.amqp]": ${AMQP_LOG_LEVEL:INFO}
+    "[org.springframework.rabbit]": ${RABBIT_LOG_LEVEL:INFO}
+    # "[org.springframework.security]": ${SECURITY_LOG_LEVEL:DEBUG}
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: ${ACTUATOR_ENDPOINTS:health,info,metrics}
+  endpoint:
+    health:
+      show-details: ${HEALTH_SHOW_DETAILS:never}
+
+# OpenAPI/Swagger Configuration
+springdoc:
+  swagger-ui:
+    enabled: ${SWAGGER_UI_ENABLED:true}
+    try-it-out-enabled: ${SWAGGER_TRY_IT_OUT_ENABLED:true}
+    operations-sorter: method
+    tags-sorter: alpha
+  api-docs:
+    enabled: ${API_DOCS_ENABLED:true}
+
+# Required Environment Variables:
+# ─────────────────────────────────────────────────────
+# JASYPT_ENCRYPTOR_PASSWORD - Master password for encrypting/decrypting secrets
+#
+# Vault secrets (edueasy/edueasy-chatbot-service/):
+#   db-password, oauth2-client-secret, rabbitmq-host, rabbitmq-username, rabbitmq-password
+#
+# Environment-Specific Recommendations:
+# ─────────────────────────────────────────────────────
+# Local:  ROOT_LOG_LEVEL=INFO, APP_LOG_LEVEL=DEBUG, SWAGGER_UI_ENABLED=true
+# Dev:    ROOT_LOG_LEVEL=INFO, APP_LOG_LEVEL=DEBUG, SWAGGER_UI_ENABLED=true
+# Test:   ROOT_LOG_LEVEL=WARN, APP_LOG_LEVEL=INFO, SWAGGER_UI_ENABLED=true
+# Prod:   ROOT_LOG_LEVEL=ERROR, APP_LOG_LEVEL=WARN, SWAGGER_UI_ENABLED=false
+#         OAUTH2_AUDIENCE=58b42ace-949f-42ad-9c7c-d24e563c3c68
