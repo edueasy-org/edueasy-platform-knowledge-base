@@ -163,13 +163,33 @@ Dependency rule: `interface → application → domain ← infrastructure`. Doma
 
 | Gate | What it checks | Status |
 |---|---|---|
-| `common-starter-archrules` (ArchUnit 1.4.1 core, tests-jar) | Dependency rule, layer purity, servlet/Spring-web ban in `*Service/*Listener/*Controller`, service-to-service coupling ban, package cycles. Frozen baseline (`archunit_violations/`, committed per API) means existing debt is allowed but **new violations fail the build**. Plain Jupiter test (not the archunit-junit5 engine) — the engine is incompatible with the platform's JUnit 6.0.3 | **Live in payment-api (verified: baseline seeded, enforcement green, negative control red)**. Rollout to remaining 8 = 2-line pom dep + 1-line `ArchitectureTest` each |
+| `common-starter-archrules` (ArchUnit 1.4.1 core, tests-jar) | Dependency rule, layer purity, servlet/Spring-web ban in `*Service/*Listener` (controllers are the interface layer — see rule corrections below), service-to-service coupling ban, package cycles. Frozen baseline (`archunit_violations/`, committed per API) means existing debt is allowed but **new violations fail the build**. Plain Jupiter test (not the archunit-junit5 engine) — the engine is incompatible with the platform's JUnit 6.0.3 | **Live in all 9 APIs** (verified 2026-09-26: baselines re-seeded after the two rule corrections below, enforcement green; negative control red on payment-api) |
 | CI gate (`api-ci.yml` / `api-pull-request.yml` step: `mvn verify`) | ArchUnit runs as part of test phase — red build = non-compliant PR | Org workflow step (documented in `edueasy-github-workflows`) |
 | PR checklist | Feature/bug PRs touching `src/main/java` must state: KB updated? architecture deviation justified? | Manual, review-enforced |
 | Contract tests for `entity/readonly` reads | Break the build when the owning context changes a shared column | Backlog (P2, review item 13) |
-| Debt register | `archunit_violations/` files ARE the register — shrinking sets tracked per release | Active (payment-api) |
+| Debt register | `archunit_violations/` files ARE the register — shrinking sets tracked per release | Active (all 9 APIs) |
 
-Commands (per API): seed/shrink baseline `mvn test -Dtest=ArchitectureTest -Darchunit.freeze.refreeze=true`; enforce `mvn test -Dtest=ArchitectureTest`.
+Commands (per API):
+
+* **Enforce** (default gate; register must be committed): `mvn test -Dtest=ArchitectureTest`
+* **Shrink / rebase** an existing baseline after a deliberate refactoring: `mvn test -Dtest=ArchitectureTest -Darchunit.freeze.refreeze=true`
+* **Seed** a brand-new API (or recreate a deleted register) — both flags are required; `refreeze` alone does NOT bypass the creation check: `mvn test -Dtest=ArchitectureTest -Darchunit.freeze.refreeze=true -Darchunit.freeze.store.default.allowStoreCreation=true`
+
+The register is tamper-evident: `freeze.store.default.allowStoreCreation=false` (shipped in `common-starter-archrules` `archunit.properties`) makes a missing or moved register fail the build instead of silently re-creating an empty baseline. Always run the gate after `mvn clean` (see "Gate hardening" below).
+
+**Rule corrections (2026-09-26).** Two implementation defects made the baseline noise instead of signal; both are fixed in `EdueasyRules`:
+
+1. The servlet/Spring-web ban listed `*Controller` in its subject while forbidding `org.springframework.web..`. Every controller carries `@RestController`/`@GetMapping` from that same package, so no real controller could ever pass — the register held one entry per web annotation. Controllers are now excluded from the subject (they *are* the interface layer); the ban still covers `*Service`/`*Listener`.
+2. The service-to-service ban matched *any* class whose simple name ends with `Service` — including the `org.springframework.stereotype.Service` **annotation type**, so every `@Service`-annotated class was recorded as debt and adding a new service failed the build; it also matched shared-starter beans such as `za.co.common.cache.service.CacheService`. The target side is now scoped to this API's own classes (`za.co.edueasy.api..`).
+
+Consequences: rule descriptions changed, so `stored.rules` maps fresh UUIDs and every API was re-seeded (delete `archunit_violations/` + refreeze). In document-processor-api the two collaborators that tripped the service-to-service ban were renamed `OCROptimizationService` → `OcrOptimizer` and `VirusScanService` → `VirusScanner`: they are technical capabilities (image pre-processing, a clamd socket adapter) rather than use-case services, and the law's remedy for a *real* seam is a port (§6.3-3), never a rule whitelist. Net effect: the 6.3-1 baseline is empty everywhere and the 6.3-3 baselines shrank to genuine use-case seams.
+
+
+**Gate hardening (2026-09-26).** Three further defects were found and fixed after the rule corrections above:
+
+1. **The gate could not fail in 6 of 9 repos.** `archunit_violations/` was listed in `.gitignore` for document-processor, auth, communication, payment, chatbot and course (only application/dashboard/broadcast committed the register). With `allowStoreCreation=true`, a clean checkout silently re-created an empty register and the gate reported success. Fixed both ways: the ignore entry is removed in all six, and `freeze.store.default.allowStoreCreation=false` now makes a missing register fail loudly.
+2. **A dead duplicate store.** `common-starter-archrules/archunit_store/` was a committed store dated 2026-09-07 carrying the pre-correction descriptions; it was superseded by the `archunit_violations/` path in `archunit.properties`. Removed.
+3. **Compiler staleness.** `maven-compiler-plugin` decides what to recompile by comparing file mtimes under `target/classes` (plus `target/maven-status/`). In a VS Code workspace the Java language server (Eclipse JDT / `redhat.java`) also writes `target/classes` asynchronously after each save, so a bare `mvn test` (no `clean`) can run the gate against classes Maven never compiled. `document-processor-api` already sets `useIncrementalCompilation=false`; the other eight use the default, which can take the "Nothing to compile - all classes are up to date" early-return. Always run the gate after `mvn clean` (CI already runs `mvn clean … verify`); to force a real compile without `clean`, use `mvn -Dmaven.compiler.useIncrementalCompilation=false test`.
 
 Rollout order (matches review §P1): payment-api → auth-api → chatbot-api → document-processor-api → communication-api → broadcast-api → course-api → application-api → dashboard-api.
 
