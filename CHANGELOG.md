@@ -2,6 +2,12 @@
 
 SemVer. Format: `[X.Y.Z] - date — summary`.
 
+## [1.1.1] - 2026-11-07
+
+### Corrected
+- §3.1 documents container vs host-default ports (broadcast-api defaults to 8086 and document-processor-api's `local` profile to 8082 when `SERVER_PORT` is unset).
+- §3.1 documents the implemented schema layout: `edu_pay` is a shared core schema for payment, application, course and dashboard tables; `edu_course` / `edu_dash` exist but are empty; schema changes are owned by `edueasy-db-pipeline-api`.
+
 ## [1.1.0] - 2026-09-07
 
 ### Changed
