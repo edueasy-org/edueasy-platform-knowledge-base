@@ -2,6 +2,15 @@
 
 SemVer. Format: `[X.Y.Z] - date — summary`.
 
+## [1.2.0] - 2026-11-06
+
+### Changed
+- §4.3 and §5.1 now reflect the implemented learner journey: select programmes before payment; payment or sponsorship is required before submitting institution forms; EFT proofs remain pending until reviewer approval.
+- Added a current-code journey/security audit reference with verified findings and remediation acceptance criteria.
+
+### Corrected
+- Reclassified the 2026-08-22 frontend/backend contract findings that are already resolved in current code; retained authorization and error-handling gaps as actionable findings.
+
 ## [1.1.0] - 2026-09-07
 
 ### Changed

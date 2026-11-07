@@ -1,0 +1,246 @@
+{
+  "schemaVersion": 1,
+  "ok": true,
+  "command": "finalize",
+  "status": "pass",
+  "type": "architecture",
+  "quality": "showcase",
+  "specification": {
+    "path": "C:\\projects\\java\\edueasy-org\\edueasy-platform-knowledge-base\\.archify\\architecture-edueasy-platform-20261106-1731\\candidate.json",
+    "sha256": "ba751749df851a46906d3276f532eec064b29361048fff409bc1a09cedd4c651",
+    "bytes": 9842
+  },
+  "artifact": {
+    "path": "C:\\projects\\java\\edueasy-org\\edueasy-platform-knowledge-base\\.archify\\architecture-edueasy-platform-20261106-1731\\edueasy-platform-modules.html",
+    "sha256": "00e87049757297ef6e02dd4b674fe33e29f2485f06b83bd8f376c8630dd7224d",
+    "bytes": 876990
+  },
+  "gates": {
+    "validate": "pass",
+    "deliver": "pass",
+    "check": "pass",
+    "browser-check": "pass"
+  },
+  "diagnostics": [],
+  "diagnosticSummary": {
+    "total": 0,
+    "shown": 0,
+    "truncated": false
+  },
+  "evidence": {
+    "receipt": "C:\\projects\\java\\edueasy-org\\edueasy-platform-knowledge-base\\.archify\\architecture-edueasy-platform-20261106-1731\\finalized\\edueasy-platform-modules.finalize.json",
+    "summaryReceipt": "C:\\projects\\java\\edueasy-org\\edueasy-platform-knowledge-base\\.archify\\architecture-edueasy-platform-20261106-1731\\finalized\\edueasy-platform-modules.finalize-summary.json",
+    "browserCheckReceipt": "C:\\projects\\java\\edueasy-org\\edueasy-platform-knowledge-base\\.archify\\architecture-edueasy-platform-20261106-1731\\finalized\\edueasy-platform-modules.browser-check.json"
+  },
+  "update": {
+    "status": "current",
+    "installedVersion": "3.2.0",
+    "availableVersion": "3.2.0",
+    "releaseNotes": null,
+    "checkedAt": "2026-11-06T16:02:41.796Z",
+    "source": "cache",
+    "noticeRequired": false,
+    "noticeText": null
+  },
+  "visualReview": "not-requested",
+  "durationMs": 9469,
+  "browserCheck": {
+    "requested": true,
+    "ran": true
+  },
+  "visualReviewRecommendation": {
+    "action": "inspect-route-readability",
+    "signals": {
+      "resolvedCrossovers": 7,
+      "routesOverSuggestedBends": 1
+    },
+    "reason": "Automated gates passed, but crossings or detours still need perceptual review before claiming visual quality.",
+    "affectedRoutes": {
+      "crossings": [
+        {
+          "left": {
+            "id": "web-auth",
+            "from": "web",
+            "to": "auth",
+            "label": "login / register",
+            "collectionIndex": 2,
+            "artifactIndex": 3
+          },
+          "right": {
+            "id": "auth-web",
+            "from": "auth",
+            "to": "web",
+            "label": "JWT and MFA",
+            "collectionIndex": 3,
+            "artifactIndex": 4
+          },
+          "point": [
+            326,
+            148
+          ],
+          "sharedNode": "web"
+        },
+        {
+          "left": {
+            "id": "web-application",
+            "from": "web",
+            "to": "application",
+            "label": "create and edit",
+            "collectionIndex": 5,
+            "artifactIndex": 6
+          },
+          "right": {
+            "id": "web-payment",
+            "from": "web",
+            "to": "payment",
+            "label": "initiate fee",
+            "collectionIndex": 7,
+            "artifactIndex": 8
+          },
+          "point": [
+            737.0000000000002,
+            444.8
+          ],
+          "sharedNode": "web"
+        },
+        {
+          "left": {
+            "id": "web-payment",
+            "from": "web",
+            "to": "payment",
+            "label": "initiate fee",
+            "collectionIndex": 7,
+            "artifactIndex": 8
+          },
+          "right": {
+            "id": "dashboard-application",
+            "from": "dashboard",
+            "to": "application",
+            "label": "REST analytics query",
+            "collectionIndex": 11,
+            "artifactIndex": 12
+          },
+          "point": [
+            765,
+            444.80000000000007
+          ]
+        },
+        {
+          "left": {
+            "id": "web-payment",
+            "from": "web",
+            "to": "payment",
+            "label": "initiate fee",
+            "collectionIndex": 7,
+            "artifactIndex": 8
+          },
+          "right": {
+            "id": "chatbot-application",
+            "from": "chatbot",
+            "to": "application",
+            "label": "read-only status lookup",
+            "collectionIndex": 13,
+            "artifactIndex": 14
+          },
+          "point": [
+            751,
+            444.8000000000001
+          ]
+        },
+        {
+          "left": {
+            "id": "web-payment",
+            "from": "web",
+            "to": "payment",
+            "label": "initiate fee",
+            "collectionIndex": 7,
+            "artifactIndex": 8
+          },
+          "right": {
+            "id": "application-events",
+            "from": "application",
+            "to": "events",
+            "label": "status changes",
+            "collectionIndex": 16,
+            "artifactIndex": 17
+          },
+          "point": [
+            779,
+            444.80000000000007
+          ]
+        },
+        {
+          "left": {
+            "id": "web-dashboard",
+            "from": "web",
+            "to": "dashboard",
+            "label": "track progress",
+            "collectionIndex": 8,
+            "artifactIndex": 9
+          },
+          "right": {
+            "id": "chatbot-application",
+            "from": "chatbot",
+            "to": "application",
+            "label": "read-only status lookup",
+            "collectionIndex": 13,
+            "artifactIndex": 14
+          },
+          "point": [
+            751,
+            518
+          ]
+        },
+        {
+          "left": {
+            "id": "dashboard-application",
+            "from": "dashboard",
+            "to": "application",
+            "label": "REST analytics query",
+            "collectionIndex": 11,
+            "artifactIndex": 12
+          },
+          "right": {
+            "id": "application-events",
+            "from": "application",
+            "to": "events",
+            "label": "status changes",
+            "collectionIndex": 16,
+            "artifactIndex": 17
+          },
+          "point": [
+            987,
+            471
+          ],
+          "sharedNode": "application"
+        }
+      ],
+      "detours": [
+        {
+          "relationship": {
+            "id": "payment-application",
+            "from": "payment",
+            "to": "application",
+            "label": "read-only context",
+            "collectionIndex": 12,
+            "artifactIndex": 13
+          },
+          "bends": 3,
+          "stretch": 1.318
+        }
+      ],
+      "truncated": false
+    },
+    "hints": [
+      "web has 7 relationships facing its right side, which fits 4 ports: make that side at least 116px, or move some of those neighbours so they face another side of web.",
+      "web → auth and auth → web cross next to web: move node auth or auth so the two reach web from different sides (for example one level with it, one directly above or below it).",
+      "web → application and web → payment cross next to web: move node application or payment so the two reach web from different sides (for example one level with it, one directly above or below it).",
+      "web → payment crosses dashboard → application: move the node of whichever is a branch, return, or second entrance to the other side of the main path, so that relationship runs through an empty corridor.",
+      "web → payment crosses chatbot → application: move the node of whichever is a branch, return, or second entrance to the other side of the main path, so that relationship runs through an empty corridor.",
+      "web → payment crosses application → events: move the node of whichever is a branch, return, or second entrance to the other side of the main path, so that relationship runs through an empty corridor.",
+      "web → dashboard crosses chatbot → application: move the node of whichever is a branch, return, or second entrance to the other side of the main path, so that relationship runs through an empty corridor.",
+      "dashboard → application and application → events cross next to application: move node dashboard or events so the two reach application from different sides (for example one level with it, one directly above or below it)."
+    ],
+    "repair": "Trace these relationships at the desktop viewport. For Architecture, use references/architecture-layout-repair.md: reflow a blocked main path or tangled connected scene, and repair an isolated defect locally only when the surrounding composition is accepted. Preserve all semantic content and user-fixed geometry. Rerun finalize once after the edit."
+  }
+}

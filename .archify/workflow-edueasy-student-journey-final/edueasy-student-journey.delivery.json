@@ -1,0 +1,17 @@
+{
+  "schemaVersion": 1,
+  "receiptId": "8cee8445-370f-410c-a022-2d43b7b120da",
+  "status": "current",
+  "command": "deliver",
+  "type": "workflow",
+  "input": "C:\\projects\\java\\edueasy-org\\edueasy-platform-knowledge-base\\.archify\\workflow-edueasy-student-journey-final\\candidate.json",
+  "output": "C:\\projects\\java\\edueasy-org\\edueasy-platform-knowledge-base\\.archify\\workflow-edueasy-student-journey-final\\edueasy-student-journey.html",
+  "specification": {
+    "sha256": "43ca3c54f8cf18b006aa1e80b2a32246ed3471add1ec33e9d56a3bae8af2feca",
+    "bytes": 5005
+  },
+  "artifact": {
+    "sha256": "7035e0ec88db42723ec4d278d98023cc26b5ab3ff5816633f54f36c8e170ee99",
+    "bytes": 843682
+  }
+}

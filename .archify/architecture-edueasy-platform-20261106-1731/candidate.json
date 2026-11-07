@@ -1,0 +1,245 @@
+{
+  "schema_version": 1,
+  "diagram_type": "architecture",
+  "meta": {
+    "title": "EduEasy Platform Module Interactions",
+    "locale": "en",
+    "output": ".archify/architecture-edueasy-platform-20261106-1731/edueasy-platform-modules.html",
+    "quality_profile": "showcase",
+    "repository": {
+      "url": "https://github.com/edueasy-org/edueasy-platform-knowledge-base.git",
+      "provider": "github",
+      "link_mode": "web",
+      "revision": "46a88801f21d98c9077440c6352f914ba0ebc853"
+    }
+  },
+  "components": [
+    {
+      "id": "student",
+      "type": "external",
+      "label": "Prospective Student",
+      "sublabel": "Discover, apply and track",
+      "pos": [35, 260],
+      "size": [150, 68],
+      "sources": [{"path": "EDUEASY-KNOWLEDGE-BASE.md", "line": 131, "end_line": 140}]
+    },
+    {
+      "id": "institution",
+      "type": "external",
+      "label": "Institution / Admin",
+      "sublabel": "Triage and decisions",
+      "pos": [35, 620],
+      "size": [150, 68],
+      "sources": [{"path": "EDUEASY-KNOWLEDGE-BASE.md", "line": 142, "end_line": 144}]
+    },
+    {
+      "id": "web",
+      "type": "frontend",
+      "label": "Web Experience",
+      "sublabel": "central-ui / central-mfe",
+      "tag": "MFE transition is gradual",
+      "pos": [239, 420],
+      "size": [174, 76],
+      "sources": [
+        {"path": "EDUEASY-KNOWLEDGE-BASE.md", "line": 87, "end_line": 90},
+        {"path": "EDUEASY-KNOWLEDGE-BASE.md", "line": 133, "end_line": 140}
+      ]
+    },
+    {
+      "id": "auth",
+      "type": "security",
+      "label": "Auth API",
+      "sublabel": "Identity, JWT and MFA",
+      "pos": [452, 100],
+      "size": [150, 68],
+      "sources": [
+        {"path": "EDUEASY-KNOWLEDGE-BASE.md", "line": 67, "end_line": 70},
+        {"path": "EDUEASY-KNOWLEDGE-BASE.md", "line": 101, "end_line": 101},
+        {"path": "EDUEASY-KNOWLEDGE-BASE.md", "line": 133, "end_line": 135}
+      ]
+    },
+    {
+      "id": "course",
+      "type": "backend",
+      "label": "Course API",
+      "sublabel": "Institutions and programmes",
+      "pos": [452, 280],
+      "size": [164, 68],
+      "sources": [
+        {"path": "EDUEASY-KNOWLEDGE-BASE.md", "line": 72, "end_line": 72},
+        {"path": "EDUEASY-KNOWLEDGE-BASE.md", "line": 106, "end_line": 106},
+        {"path": "EDUEASY-KNOWLEDGE-BASE.md", "line": 133, "end_line": 133}
+      ]
+    },
+    {
+      "id": "application",
+      "type": "backend",
+      "label": "Application API",
+      "sublabel": "Owns application state",
+      "pos": [674, 300],
+      "size": [168, 70],
+      "sources": [
+        {"path": "EDUEASY-KNOWLEDGE-BASE.md", "line": 70, "end_line": 70},
+        {"path": "EDUEASY-KNOWLEDGE-BASE.md", "line": 124, "end_line": 127},
+        {"path": "EDUEASY-KNOWLEDGE-BASE.md", "line": 135, "end_line": 136}
+      ]
+    },
+    {
+      "id": "documents",
+      "type": "backend",
+      "label": "Document Processor",
+      "sublabel": "Validate, ingest and generate",
+      "pos": [674, 100],
+      "size": [176, 68],
+      "sources": [
+        {"path": "EDUEASY-KNOWLEDGE-BASE.md", "line": 76, "end_line": 76},
+        {"path": "EDUEASY-KNOWLEDGE-BASE.md", "line": 135, "end_line": 140}
+      ]
+    },
+    {
+      "id": "chatbot",
+      "type": "backend",
+      "label": "Chatbot API",
+      "sublabel": "Answers or escalates",
+      "pos": [674, 540],
+      "size": [164, 68],
+      "sources": [
+        {"path": "EDUEASY-KNOWLEDGE-BASE.md", "line": 75, "end_line": 75},
+        {"path": "EDUEASY-KNOWLEDGE-BASE.md", "line": 104, "end_line": 104},
+        {"path": "EDUEASY-KNOWLEDGE-BASE.md", "line": 139, "end_line": 139}
+      ]
+    },
+    {
+      "id": "payment",
+      "type": "backend",
+      "label": "Payment API",
+      "sublabel": "PayFast and ZAR payments",
+      "pos": [895, 300],
+      "size": [170, 68],
+      "sources": [
+        {"path": "EDUEASY-KNOWLEDGE-BASE.md", "line": 71, "end_line": 71},
+        {"path": "EDUEASY-KNOWLEDGE-BASE.md", "line": 118, "end_line": 122},
+        {"path": "EDUEASY-KNOWLEDGE-BASE.md", "line": 137, "end_line": 137}
+      ]
+    },
+    {
+      "id": "dashboard",
+      "type": "backend",
+      "label": "Dashboard API",
+      "sublabel": "Analytics facade; no owned data",
+      "pos": [895, 540],
+      "size": [184, 68],
+      "sources": [
+        {"path": "EDUEASY-KNOWLEDGE-BASE.md", "line": 77, "end_line": 77},
+        {"path": "EDUEASY-KNOWLEDGE-BASE.md", "line": 102, "end_line": 102},
+        {"path": "EDUEASY-KNOWLEDGE-BASE.md", "line": 124, "end_line": 127}
+      ]
+    },
+    {
+      "id": "payfast",
+      "type": "external",
+      "label": "PayFast",
+      "sublabel": "Hosted checkout and ITN",
+      "pos": [1117, 100],
+      "size": [154, 68],
+      "sources": [
+        {"path": "EDUEASY-KNOWLEDGE-BASE.md", "line": 118, "end_line": 122},
+        {"path": "EDUEASY-KNOWLEDGE-BASE.md", "line": 137, "end_line": 137}
+      ]
+    },
+    {
+      "id": "events",
+      "type": "messagebus",
+      "label": "RabbitMQ",
+      "sublabel": "Topics, outbox and DLQ",
+      "pos": [1117, 430],
+      "size": [164, 68],
+      "sources": [
+        {"path": "EDUEASY-KNOWLEDGE-BASE.md", "line": 79, "end_line": 79},
+        {"path": "EDUEASY-KNOWLEDGE-BASE.md", "line": 105, "end_line": 105},
+        {"path": "EDUEASY-KNOWLEDGE-BASE.md", "line": 111, "end_line": 113}
+      ]
+    },
+    {
+      "id": "communication",
+      "type": "backend",
+      "label": "Communication API",
+      "sublabel": "Templated email and SMS",
+      "pos": [1339, 340],
+      "size": [178, 68],
+      "sources": [
+        {"path": "EDUEASY-KNOWLEDGE-BASE.md", "line": 73, "end_line": 73},
+        {"path": "EDUEASY-KNOWLEDGE-BASE.md", "line": 105, "end_line": 105},
+        {"path": "EDUEASY-KNOWLEDGE-BASE.md", "line": 138, "end_line": 138}
+      ]
+    },
+    {
+      "id": "broadcast",
+      "type": "backend",
+      "label": "Broadcast API",
+      "sublabel": "Audience-wide notices",
+      "pos": [1339, 590],
+      "size": [174, 68],
+      "sources": [
+        {"path": "EDUEASY-KNOWLEDGE-BASE.md", "line": 74, "end_line": 74},
+        {"path": "EDUEASY-KNOWLEDGE-BASE.md", "line": 105, "end_line": 105},
+        {"path": "EDUEASY-KNOWLEDGE-BASE.md", "line": 140, "end_line": 144}
+      ]
+    },
+    {
+      "id": "delivery",
+      "type": "external",
+      "label": "Email / SMS Providers",
+      "sublabel": "Delivery channels",
+      "pos": [1569, 460],
+      "size": [180, 68],
+      "sources": [
+        {"path": "EDUEASY-KNOWLEDGE-BASE.md", "line": 73, "end_line": 73},
+        {"path": "EDUEASY-KNOWLEDGE-BASE.md", "line": 138, "end_line": 144}
+      ]
+    }
+  ],
+  "connections": [
+    {"id": "student-web", "from": "student", "to": "web", "label": "apply and track", "variant": "emphasis"},
+    {"id": "admin-web", "from": "institution", "to": "web", "label": "admin portal", "variant": "emphasis"},
+    {"id": "web-auth", "from": "web", "to": "auth", "label": "login / register", "variant": "security"},
+    {"id": "auth-web", "from": "auth", "to": "web", "label": "JWT and MFA", "variant": "security"},
+    {"id": "web-course", "from": "web", "to": "course", "label": "browse programmes"},
+    {"id": "web-application", "from": "web", "to": "application", "label": "create and edit"},
+    {"id": "web-documents", "from": "web", "to": "documents", "label": "upload and generate"},
+    {"id": "web-payment", "from": "web", "to": "payment", "label": "initiate fee"},
+    {"id": "web-dashboard", "from": "web", "to": "dashboard", "label": "track progress"},
+    {"id": "web-chatbot", "from": "web", "to": "chatbot", "label": "ask for help"},
+    {"id": "web-broadcast", "from": "web", "to": "broadcast", "label": "admin notices"},
+    {"id": "dashboard-application", "from": "dashboard", "to": "application", "label": "REST analytics query"},
+    {"id": "payment-application", "from": "payment", "to": "application", "label": "read-only context", "variant": "dashed"},
+    {"id": "chatbot-application", "from": "chatbot", "to": "application", "label": "read-only status lookup", "variant": "dashed"},
+    {"id": "payment-payfast", "from": "payment", "to": "payfast", "label": "signed checkout", "variant": "emphasis"},
+    {"id": "payfast-payment", "from": "payfast", "to": "payment", "label": "verified ITN"},
+    {"id": "application-events", "from": "application", "to": "events", "label": "status changes", "variant": "dashed"},
+    {"id": "payment-events", "from": "payment", "to": "events", "label": "outbox events", "variant": "dashed"},
+    {"id": "events-communication", "from": "events", "to": "communication", "label": "delivery events", "variant": "dashed"},
+    {"id": "events-broadcast", "from": "events", "to": "broadcast", "label": "notification events", "variant": "dashed"},
+    {"id": "communication-delivery", "from": "communication", "to": "delivery", "label": "email and SMS"},
+    {"id": "broadcast-delivery", "from": "broadcast", "to": "delivery", "label": "mass delivery"}
+  ],
+  "cards": [
+    {
+      "dot": "cyan",
+      "title": "Shared platform",
+      "items": [
+        "All nine APIs use common-starter modules for security, clients, messaging and observability",
+        "PostgreSQL, Redis, Kong and tracing are shared platform infrastructure",
+        "REST is synchronous; RabbitMQ with outbox and DLQ handles asynchronous integration"
+      ]
+    },
+    {
+      "dot": "emerald",
+      "title": "Operations",
+      "items": [
+        "Grafana, Prometheus and Loki monitor API health, metrics and logs",
+        "The central MFE is a gradual migration target; central-ui remains in production"
+      ]
+    }
+  ]
+}

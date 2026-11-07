@@ -31,7 +31,7 @@ Last verified: 2026-09-24, against the running `docker` profile.
             │  C2 APS / C3 payment-status (service token)
             │
   ┌─────────┴──────────┐
-  │ course-api  :8091  │  (course selection, gated on APS + payment)
+  │ course-api  :8091  │  (course choices before payment; final submission gated)
   └────────────────────┘
 ```
 
@@ -128,14 +128,15 @@ a dashboard outage cannot block course selection.
 - The **dashboard is the source of truth**. If it is unreachable or has no APS
   yet, the caller may fall back to a client-supplied APS for UX only.
 
-### C3 — resolve payment status
+### C3 — resolve payment status for final submission
 
 **Client:** `DashboardPaymentStatusClient`
 `GET {course.dashboard.payment-status-path}` (default
 `/api/v1/applications/{applicationId}/journey/payment-status`)
 
 - Response: an untyped map describing direct payment **or** active sponsorship.
-- Used to gate course selection.
+- Used by `SubmitInstitutionApplicationsUseCase` to gate final institution-form
+  submission. Course/programme choices are recorded before payment.
 
 ### C2/C3 metrics exported to Prometheus
 
