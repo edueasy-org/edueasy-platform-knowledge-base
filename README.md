@@ -1,6 +1,6 @@
 # EduEasy Knowledge Base (KB)
 
-**Start here: [`EDUEASY-KNOWLEDGE-BASE.md`](./EDUEASY-KNOWLEDGE-BASE.md)** — the single source of truth (KB v1.1.0).
+**Start here: [`EDUEASY-KNOWLEDGE-BASE.md`](./EDUEASY-KNOWLEDGE-BASE.md)** — the single source of truth (KB v1.1.1).
 
 This repository (`edueasy-platform-knowledge-base`) is the **only** home of EduEasy platform knowledge. No service repo keeps its own KB copy.
 

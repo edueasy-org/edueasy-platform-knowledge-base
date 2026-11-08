@@ -1,6 +1,6 @@
 # EduEasy Knowledge Base
 
-> **KB Version: 1.1.0** · Status: AUTHORITATIVE · Last updated: 2026-09-07
+> **KB Version: 1.1.1** · Status: AUTHORITATIVE · Last updated: 2026-11-07
 > This document is the **single source of truth** for what EduEasy is, what it intends to do, and how it works.
 > It lives in its own repository — `edueasy-platform-knowledge-base` — not inside any service repo.
 > Every refactoring or feature that changes architecture, journeys, topology, or policy **must** update this file and bump the version (see §9 Governance and `CHANGELOG.md`).
@@ -75,6 +75,10 @@ Non-goals (explicit): being an LMS, owning student-records systems of institutio
 | edueasy-chatbot-api | 8090 | Student-facing assistant: intent → FAQ/DB → LLM → escalation |
 | edueasy-document-processor-api | 8081 | PDF/Excel generation, ingestion, zip export packages |
 | edueasy-dashboard-api | 8087 | Thin facade over application-api analytics (delegation by design) |
+
+Ports are the **container** ports (`SERVER_PORT` in compose and k8s, scraped by Prometheus). Two services differ when run on the host without `SERVER_PORT`: broadcast-api's `application-*.yml` default is **8086** (avoids clashing with payment-api on 8080), and document-processor-api's `local` profile uses **8082**.
+
+**Database schemas (as implemented).** One PostgreSQL database, `university_db`, with schema-per-context for auth (`edu_auth`), broadcast (`edu_broad`), chatbot (`edu_chat`), communication (`edu_comms`) and document-processor (`edu_doc`). **`edu_pay` is a shared core schema**: besides payment tables it holds the application, student, institution, journey, sponsorship and course-choice tables used by payment-api, application-api, course-api and dashboard-api (entities pin `schema = "edu_pay"`). The `edu_course` and `edu_dash` schemas are created but currently empty, and course-api's `edu_course` default-schema setting has no effect. All schema changes are owned by `edueasy-db-pipeline-api` (Flyway is disabled in the services). Splitting `edu_pay` into per-context schemas is target-state work, not current reality.
 
 Shared infrastructure: PostgreSQL (primary store), Redis (cache/session), RabbitMQ (events, DLQ), Mailhog (local SMTP), Kong (gateway), Otelf/OpenShift tracing sink.
 
